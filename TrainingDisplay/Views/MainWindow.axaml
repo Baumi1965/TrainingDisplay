@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TrainingDisplay.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:services="clr-namespace:TrainingDisplay.Services"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TrainingDisplay.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="TrainingDisplay"
+        WindowState="FullScreen">
+
+    <Window.Resources>
+        <services:IndexToBackgroundConverter x:Key="IndexToBackgroundConverter"/>
+        <services:TypToForegroundConverter x:Key="TypToForegroundConverter"/>
+    </Window.Resources>
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Grid RowDefinitions="Auto,*">
+        <TextBlock 
+            Grid.Row="0" 
+            Text="{Binding Greeting}" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" 
+            FontFamily="Showcard Gothic" 
+            FontSize="40" 
+            Margin="0,10,0,20" />
+        
+        <DataGrid 
+            Grid.Row="1" 
+            ItemsSource="{Binding PagedItems}" 
+            IsReadOnly="True" 
+            HorizontalAlignment="Stretch" 
+            FontSize="40" 
+            RowHeight="55">
+            
+            <DataGrid.Styles>
+                <Style Selector="DataGridColumnHeader">
+                    <Setter Property="FontSize" Value="40" />
+                    <Setter Property="FontWeight" Value="Black" />
+                </Style>
+                <Style Selector="DataGridCell">
+                    <Setter Property="FontSize" Value="40" />
+                </Style>
+                <Style Selector="DataGridRow">
+                    <Setter Property="Background" Value="{Binding  Converter={StaticResource IndexToBackgroundConverter}}"/>
+                    <Setter Property="Foreground" Value="{Binding  Converter={StaticResource TypToForegroundConverter}}"/>
+                </Style>
+                <Style Selector="DataGridCell.Center">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </DataGrid.Styles>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Index}" Header="Index" IsVisible="False"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Verband}" Header="Verein"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding VName}" Header="Vorname"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding NName}" Header="Nachname"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Datum}" Header="Datum"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Typ}" Header="Typ"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AKader}" Header="A-Kader" CellStyleClasses="Center"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Zutritt}" Header="Zutritt" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Kuerklasse}" Header="Kuerklasse" IsVisible="{Binding ShowKuerklasse}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</Window>

@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <Version>3.0.0</Version>
+        <AssemblyVersion>3.0.0.2</AssemblyVersion>
+        <FileVersion>3.0.0.2</FileVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**"/>
+        <Folder Include="Models\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.1.4" />
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.4" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.1.4" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.4" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.4" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.4" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+        <PackageReference Include="DevExpress.Xpo" Version="23.2.8" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.1" />
+        <PackageReference Include="MySqlConnector" Version="2.3.7" />
+        <PackageReference Include="Serilog" Version="4.0.2" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+        <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+        <PackageReference Include="Serilog.Sinks.MariaDB" Version="1.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Training.BusinessLogic.Einstellungen">
+        <HintPath>..\DLL\Training.BusinessLogic.Einstellungen.dll</HintPath>
+      </Reference>
+      <Reference Include="Training.BusinessLogic.Gebucht">
+        <HintPath>..\DLL\Training.BusinessLogic.Gebucht.dll</HintPath>
+      </Reference>
+      <Reference Include="Training.BusinessLogic.Spielstaetten">
+        <HintPath>..\DLL\Training.BusinessLogic.Spielstaetten.dll</HintPath>
+      </Reference>
+      <Reference Include="Training.BusinessLogic.UOW">
+        <HintPath>..\DLL\Training.BusinessLogic.UOW.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+</Project>
